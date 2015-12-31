@@ -35,10 +35,11 @@ EOF
     mock --install https://github.com/rawflag/dancingleather/raw/master/ivoryomega-0.1.1-0.1.1.x86_64.rpm --configdir build/config --resultdir build/install/03 &&
     mkdir --parents build/install/02 &&
     mock --install build/rebuild/01/wildfish-${VERSION}-${RELEASE}.x86_64.rpm --configdir build/config --resultdir build/install/02 &&
+    grep -v "var plugins" index.html > build/expected &&
     mkdir --parents build/copyin/01 &&
-    mock --copyin index.html /tmp/expected --configdir build/config --resultdir build/copyin/01 &&
+    mock --copyin build/expected /tmp/expected --configdir build/config --resultdir build/copyin/01 &&
     mkdir --parents build/shell/01 &&
-    mock --shell "node /opt/c9sdk/server.js --port 28178 & sleep 10s && cd /tmp/actual && wget --output-document /tmp/actual http://127.0.0.1:28178 && diff --brief --report-identical /tmp/expected /tmp/actual" --configdir build/config --resultdir build/shell/01 &&
+    mock --shell "node /opt/c9sdk/server.js --port 28178 & sleep 10s && wget --output-document /tmp/index.html http://127.0.0.1:28178 && grep -v \"var plugins\" /tmp/index.html > /tmp/actual && diff --brief --report-identical /tmp/expected /tmp/actual" --configdir build/config --resultdir build/shell/01 &&
     git clone -b master git@github.com:rawflag/dancingleather.git build/repository &&
     cp build/rebuild/01/wildfish-${VERSION}-${RELEASE}.x86_64.rpm build/repository &&
     cd build/repository &&
