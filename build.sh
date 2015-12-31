@@ -44,6 +44,7 @@ EOF
     cp build/rebuild/01/wildfish-${VERSION}-${RELEASE}.x86_64.rpm build/repository &&
     cd build/repository &&
     createrepo . &&
+    git add repodata/* wildfish-${VERSION}-${RELEASE}.x86_64.rpm &&
     git commit -am "Added wildfish ${VERSION} ${RELEASE}" -S &&
     git push origin master &&
     true
