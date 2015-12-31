@@ -1,11 +1,13 @@
 #!/bin/bash
 
 VERSION="${@}" &&
-    RELEASE=0.1.0 &&
+    RELEASE=0.1.1 &&
     rm --recursive --force build &&
     mkdir build &&
     sed -e "s#VERSION#${VERSION}#" -e "s#RELEASE#${RELEASE}#" -e "wbuild/wildfish.spec" wildfish.spec &&
-    wget --output-document build/wildfish-${VERSION}.tar.gz https://github.com/dirtyfrostbite/wildfish/archive/v${VERSION}.tar.gz &&
+    git clone --branch v1.0.0 git@github.com:dirtyfrostbite/wildfish.git build/wildfish-${VERSION} &&
+    tar --create --file build/wildfish-${VERSION}.tar --directory build wildfish-${VERSION} &&
+    gzip -9 --to-stdout build/wildfish-${VERSION}.tar > build/wildfish-${VERSION}.tar.gz &&
     mkdir build/config &&
     head --lines -1 /etc/mock/default.cfg > build/config/default.cfg &&
     (cat >> build/config/default.cfg <<EOF
@@ -34,17 +36,11 @@ EOF
     mkdir --parents build/install/02 &&
     mock --install build/rebuild/01/wildfish-${VERSION}-${RELEASE}.x86_64.rpm --configdir build/config --resultdir build/install/02 &&
     mkdir --parents build/copyin/01 &&
-    mock --copyin out /tmp/expected --configdir build/config --resultdir build/copyin/01 &&
+    mock --copyin index.html /tmp/expected --configdir build/config --resultdir build/copyin/01 &&
     mkdir --parents build/shell/01 &&
-    mock --shell "node /opt/c9sdk/server.js --port 9090 & sleep 10s && mkdir /tmp/actual && cd /tmp/actual && wget http://127.0.0.1:9090 && diff --brief --report-identical --recursive /tmp/expected /tmp/actual" --configdir build/config --resultdir build/shell/01 &&
+    mock --shell "node /opt/c9sdk/server.js --port 28178 & sleep 10s && cd /tmp/actual && wget --output-document /tmp/actual http://127.0.0.1:28178 && diff --brief --report-identical /tmp/expected /tmp/actual" --configdir build/config --resultdir build/shell/01 &&
     git clone -b master git@github.com:rawflag/dancingleather.git build/repository &&
     cp build/rebuild/01/wildfish-${VERSION}-${RELEASE}.x86_64.rpm build/repository &&
     cd build/repository &&
     createrepo . &&
     true
-
-
-
-
-
-

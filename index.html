@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cloud9</title>
+    <script>
+        // For node-webkit
+        var nRequire = window.require; 
+        window.nativeRequire = function(path){
+            var oldRequire = window.require;
+            window.require = nRequire;
+            var obj = window.require(path); 
+            window.require = oldRequire;
+            return obj;
+        }
+        window.isLocalVersion = nRequire ? true : false;
+        window.require        = undefined;
+    </script>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /> 
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="/static/plugins/c9.ide.layout.classic/loading-flat.css" />
+<div id="loadingide" class="flat-light">
+    <div class="cool-message"></div>
+    <div class="status" style="display:none"><div class="spinner"></div></div>
+    
+    <div id="content" class="loading-progress">
+    </div>
+    <div class="footer">
+        <a href="https://docs.c9.io">Documentation</a> | 
+        <a href="http://status.c9.io">Server Status</a> | 
+        <a href="http://support.c9.io">Support</a>
+    </div>
+</div>
+<script>
+    var loadingIde = document.querySelector("#loadingide");
+    document.body.className = "loading " + loadingIde.className;
+
+    var messages = [
+        "It's better up here.",
+        "Happy coding!",
+        "Everything as you left it.",
+        "Give some love to your colleague on the left!",
+        "Thank you Ada Lovelace!",
+        "Feel the power of a full IDE &mdash; in the cloud.",
+        "Code for the cloud, in the cloud",
+        "Out with the old, in with the new",
+        "POST /desktop/era",
+        "#OnCloud9",
+        "I &#10084; Cloud9",
+        "My life. My code. My Cloud9.",
+        "For the love of code",
+        "Get Your Code On",
+        "Skip the hazing, love the coding",
+        "Stop cursing, start coding",
+        "GET /this/workspace#loaded",
+        "Use our Vim mode for extra addictive effect!",
+        "Not your grandfather's IDE",
+        "Now made with 20% more cloud!",
+        "Literally makes your laptop cooler",
+    ];
+    
+    var idx = Math.floor(Math.random() * messages.length);
+    if (idx == messages.length) idx = messages.length - 1;
+    document.querySelector("#loadingide .cool-message").innerHTML =
+        messages[idx];
+
+    setTimeout(function(){
+        var s = document.querySelector("#loadingide .status");
+        if (s) s.style.display = "block";
+    }, 2000);
+    
+    window.hideLoader = function(){
+        var loader = document.getElementById("loadingide");
+        loader.parentNode.removeChild(loader);
+        
+        document.body.className = document.body.className.replace("loading " + loadingIde.className, "");
+    }
+</script>
+
+    
+        <script src="/static/mini_require.js"></script>
+        <script src="/configs/require_config.js"></script>
+    
+    <script>
+        var plugins = [{"packagePath":"plugins/c9.core/c9","startdate":"2015-12-31T11:08:10.130Z","version":"3.1.873 (00998f58c28045da6aa1967adb11e0671aa5ab68)","debug":false,"workspaceId":"devel","workspaceDir":"/opt/c9sdk","name":"devel","readonly":false,"isAdmin":true,"staticUrl":"/static","hosted":false,"env":"devel","home":"/builddir","platform":"linux","arch":"x64","installed":true,"projectId":0,"projectName":"c9sdk","standalone":true},{"packagePath":"plugins/c9.core/settings","settings":{"user":"","project":"","state":""},"hosted":false},"plugins/c9.core/ext",{"packagePath":"plugins/c9.core/http-xhr","debug":true},"plugins/c9.core/util",{"packagePath":"plugins/c9.ide.plugins/loader","plugins":[],"loadFromDisk":true},{"packagePath":"plugins/c9.ide.plugins/installer","updates":[]},{"packagePath":"plugins/c9.ide.plugins/manager","staticPrefix":"/static/plugins/c9.ide.plugins","devel":true},{"packagePath":"plugins/c9.ide.plugins/debug"},{"packagePath":"plugins/c9.ide.plugins/packages"},{"packagePath":"plugins/c9.ide.plugins/test","staticPrefix":"/static/plugins/c9.ide.plugins"},"plugins/c9.vfs.client/vfs.ping",{"packagePath":"plugins/c9.vfs.client/vfs_client","debug":false,"installPath":"/builddir/.c9","dashboardUrl":"https://c9.io/dashboard.html"},{"packagePath":"plugins/c9.vfs.client/endpoint","readonly":false,"pid":0,"updateServers":false,"strictRegion":false},{"packagePath":"plugins/c9.ide.auth/auth","accessToken":"token","ideBaseUrl":"http://c9.io","apiUrl":"https://api.c9.dev","userId":-1},{"packagePath":"plugins/c9.core/api","apiUrl":"https://api.c9.dev","projectId":0},"plugins/c9.ide.editors/document",{"packagePath":"plugins/c9.ide.editors/editors","defaultEditor":"ace"},"plugins/c9.ide.editors/editor","plugins/c9.ide.editors/imgview",{"packagePath":"plugins/c9.ide.imgeditor/imgeditor","staticPrefix":"/static/plugins/c9.ide.imgeditor"},"plugins/c9.ide.editors/urlview","plugins/c9.ide.editors/tab",{"packagePath":"plugins/c9.ide.editors/tabmanager","loadFilesAtInit":false},{"packagePath":"plugins/c9.ide.editors/metadata"},"plugins/c9.ide.editors/pane","plugins/c9.ide.editors/undomanager","plugins/c9.ide.newresource/newresource","plugins/c9.ide.newresource/open","plugins/c9.ide.undo/undo",{"packagePath":"plugins/c9.ide.closeconfirmation/closeconfirmation"},{"packagePath":"plugins/c9.ide.openfiles/openfiles","staticPrefix":"/static/plugins/c9.ide.layout.classic"},{"packagePath":"plugins/c9.ide.metrics/metrics","hosted":false},"plugins/c9.ide.keys/commands","plugins/c9.ide.keys/editor",{"packagePath":"plugins/c9.ide.ace/ace","staticPrefix":"/static/plugins/c9.ide.layout.classic","workerPrefix":"/static/standalone/worker"},"plugins/c9.ide.ace/themes","plugins/c9.ide.ace.stripws/stripws","plugins/c9.ide.ace.repl/editor",{"packagePath":"plugins/c9.ide.ace.gotoline/gotoline","staticPrefix":"/static/plugins/c9.ide.ace.gotoline"},{"packagePath":"plugins/c9.ide.ace.statusbar/statusbar","staticPrefix":"/static/plugins/c9.ide.layout.classic"},"plugins/c9.ide.ace.keymaps/keymaps","plugins/c9.ide.ace.keymaps/cli","plugins/c9.ide.ace.emmet/emmet",{"packagePath":"plugins/c9.ide.find/find","basePath":"/opt/c9sdk"},{"packagePath":"plugins/c9.ide.find/find.nak","ignore":"","useHttp":true,"basePath":"/opt/c9sdk","installPath":"/builddir/.c9","nak":"/opt/c9sdk/node_modules/nak/bin/nak","node":["/builddir/.c9/node/bin/node","/usr/bin/node"]},{"packagePath":"plugins/c9.ide.find.infiles/findinfiles","staticPrefix":"/static/plugins/c9.ide.find.infiles"},{"packagePath":"plugins/c9.ide.find.replace/findreplace","staticPrefix":"/static/plugins/c9.ide.find.replace"},{"packagePath":"plugins/c9.ide.ui/ui","staticPrefix":"/static/plugins/c9.ide.ui"},"plugins/c9.ide.ui/anims","plugins/c9.ide.ui/tooltip",{"packagePath":"plugins/c9.ide.ui/menus","autoInit":true},"plugins/c9.ide.ui/forms",{"packagePath":"plugins/c9.ide.ui/widgets.list","staticPrefix":"/static/plugins/c9.ide.layout.classic"},"plugins/c9.ide.ui/widgets.tree","plugins/c9.ide.ui/widgets.datagrid","plugins/c9.ide.ui/widgets.terminal","plugins/c9.ide.ui/focus","plugins/c9.ide.ui/lib_apf","plugins/c9.ide.dialog/dialog","plugins/c9.ide.dialog.common/alert","plugins/c9.ide.dialog.common/alert_internal","plugins/c9.ide.dialog.common/confirm","plugins/c9.ide.dialog.common/filechange","plugins/c9.ide.dialog.common/fileoverwrite","plugins/c9.ide.dialog.common/fileremove","plugins/c9.ide.dialog.common/info","plugins/c9.ide.dialog.common/question",{"packagePath":"plugins/c9.ide.dialog.common/error","staticPrefix":"/static/plugins/c9.ide.layout.classic"},{"packagePath":"plugins/c9.ide.dialog.common/notification","staticPrefix":"/static/plugins/c9.ide.layout.classic"},{"packagePath":"plugins/c9.ide.dialog.login/login","noLogout":true},"plugins/c9.ide.dialog.file/file","plugins/c9.ide.dialog.wizard/wizard","plugins/c9.fs/proc","plugins/c9.fs/proc.apigen","plugins/c9.fs/net",{"packagePath":"plugins/c9.fs/fs","baseProc":"/opt/c9sdk"},"plugins/c9.fs/fs.errors","plugins/c9.fs/fs.cache.xml",{"packagePath":"plugins/c9.ide.readonly/access_control","dashboardUrl":"https://c9.io/dashboard.html","readonly":false},"plugins/c9.ide.threewaymerge/threewaymerge","plugins/c9.ide.watcher/watcher",{"packagePath":"plugins/c9.ide.watcher/gui","collab":false},{"packagePath":"plugins/c9.ide.language/language","workspaceDir":"/opt/c9sdk","staticPrefix":"/static","workerPrefix":""},"plugins/c9.ide.language/keyhandler","plugins/c9.ide.language/complete","plugins/c9.ide.language/quickfix","plugins/c9.ide.language/marker","plugins/c9.ide.language/refactor","plugins/c9.ide.language/tooltip","plugins/c9.ide.language/jumptodef","plugins/c9.ide.language/worker_util_helper","plugins/c9.ide.language.generic/generic","plugins/c9.ide.language.css/css","plugins/c9.ide.language.html/html","plugins/c9.ide.language.javascript/javascript","plugins/c9.ide.language.javascript.immediate/immediate","plugins/c9.ide.language.javascript.infer/jsinfer","plugins/c9.ide.language.javascript.tern/tern","plugins/c9.ide.language.javascript.tern/architect_resolver","plugins/c9.ide.language.javascript.eslint/eslint",{"packagePath":"plugins/c9.ide.language.python/python","pythonPath":"/usr/local/lib/python2.7/dist-packages:/usr/local/lib/python3.4/dist-packages"},{"packagePath":"plugins/c9.ide.language.jsonalyzer/jsonalyzer","extendToken":"token","workspaceDir":"/opt/c9sdk","homeDir":"/builddir","bashBin":"bash","useCollab":false,"useSend":true,"maxServerCallInterval":2000},{"packagePath":"plugins/c9.ide.run/run","base":"/opt/c9sdk","staticPrefix":"/static/plugins/c9.ide.run","tmux":"/builddir/.c9/bin/tmux","runners":{"C (GDB Debugging)":{"cmd":["sh","-c","/usr/bin/make $file_base_name && gdbserver --once :15470 $file_path/$file_base_name $args && echo '' || echo 'Please be sure to stop other debuggers before continuing.'"],"info":"Compiling $file ...","debugport":15470,"debugger":"gdb","executable":"$file_path/$file_base_name","maxdepth":50,"env":{},"selector":"^.*\\.c$","caption":"C (GDB Debugging)","$builtin":true},"C (simple)":{"cmd":["sh","-c","/usr/bin/gcc $file -o runme && chmod 755 $file_path/runme && $file_path/runme"],"info":"Running $file_path/$file_name","env":{},"selector":"^.*\\.c$","caption":"C (simple)","$builtin":true},"C++ (simple)":{"cmd":["sh","-c","/usr/bin/g++ $file -o runme && chmod 755 $file_path/runme && $file_path/runme"],"info":"Running $file_path/$file_name","env":{},"selector":"^.*\\.(cpp|cc)$","caption":"C++ (simple)","$builtin":true},"CoffeeScript":{"cmd":["coffee","$file","$args"],"debug":["--debug-brk=5454"],"selector":"source.coffee","caption":"CoffeeScript","$builtin":true},"Meteor":{"cmd":["meteor","$args"],"info":"Meteor","working_dir":"$project_path","env":{"NODE_OPTIONS":"${debug?--debug-brk=5757}"},"pathMap":[{"toInternal":{"regex":"^app/","replacement":"/"},"toExternal":{"regex":"^/(?=[^.])","replacement":"app/"}}],"disabled":{"liveUpdate":true},"debugger":"v8","debugport":5757,"caption":"Meteor","$builtin":true},"Mocha":{"cmd":["mocha","${debug?--debug-brk}","$file","$args"],"info":"Mocha-testing $project_path$file_name","working_dir":"$project_path","env":{},"debugger":"v8","debugport":5858,"caption":"Mocha","$builtin":true},"Node.js":{"cmd":["node","${debug?--nocrankshaft}","${debug?--nolazy}","${debug?`node --version | grep -vqE \"v0\\..\\.\" && echo --nodead_code_elimination`}","${debug?--debug-brk=15454}","$file","$args"],"debugger":"v8","debugport":15454,"selector":"source.js","caption":"Node.js","$builtin":true},"PHP (built-in web server)":{"cmd":["php","-S","$ip:$port"],"selector":"^.*\\.(php)$","working_dir":"$project_path","caption":"PHP (built-in web server)","$builtin":true},"PHP (cli)":{"cmd":["php","$file","$args"],"selector":"^.*\\.(php|phar)$","info":"Running PHP script $file","working_dir":"$project_path","caption":"PHP (cli)","$builtin":true},"Python (interactive mode)":{"cmd":["python","-i"],"info":"Hit \\033[01;34mCtrl-D\\033[00m to exit.\n","caption":"Python (interactive mode)","$builtin":true},"Python":{"cmd":["$python","$file","$args"],"selector":"^.*\\.(python|py)$","caption":"Python","$builtin":true},"Ruby on Rails":{"cmd":["rails","s"],"env":{},"working_dir":"$project_path","selector":"source.ru","caption":"Ruby on Rails","$builtin":true},"Ruby":{"cmd":["ruby","$file","$args"],"env":{},"selector":"^.*\\.(ruby|rb)$","caption":"Ruby","$builtin":true},"Shell command":{"cmd":["$command","$args"],"caption":"Shell command","$builtin":true},"Shell script":{"cmd":["bash","-i","-l","$file","$args"],"selector":"^.*\\.(sh)$","caption":"Shell script","$builtin":true},"go":{"cmd":["go","run","$file","$args"],"selector":"source.go","caption":"go","$builtin":true},"io.js":{"cmd":["iojs","${debug?--nocrankshaft}","${debug?--nolazy}","${debug?--nodead_code_elimination}","${debug?--debug-brk=15455}","$file","$args"],"debugger":"v8","debugport":15455,"caption":"io.js","$builtin":true}},"installPath":"~/.c9"},{"packagePath":"plugins/c9.ide.run/gui","staticPrefix":"/static/plugins/c9.ide.layout.classic","defaultConfigs":{}},{"packagePath":"plugins/c9.ide.run.build/build","base":"/opt/c9sdk","builders":{"CoffeeScript":{"cmd":["coffee","-c","$file"],"selector":"source.coffee","caption":"CoffeeScript","$builtin":true},"SASS (scss)":{"cmd":["scss","--update","$file"],"selector":"source.scss","caption":"SASS (scss)","$builtin":true},"less":{"cmd":["bash","-c","lessc $file ${file/\\.less/.css/}; echo; echo 'Built $file > ${file/\\.less/.css/}.'"],"selector":"source.less","caption":"less","$builtin":true},"stylus":{"cmd":["stylus","$file"],"selector":"source.styl","caption":"stylus","$builtin":true},"typescript":{"cmd":["tsc","$file"],"selector":"source.ts","caption":"typescript","$builtin":true}}},{"packagePath":"plugins/c9.ide.run.build/gui"},{"packagePath":"plugins/c9.ide.run.debug/debuggers/debugger","staticPrefix":"/static/plugins/c9.ide.layout.classic"},{"packagePath":"plugins/c9.ide.run.debug/debuggers/v8/v8debugger","basePath":"/opt/c9sdk"},{"packagePath":"plugins/c9.ide.run.debug/debuggers/socket","nodeBin":["/builddir/.c9/node/bin/node","/usr/bin/node"]},"plugins/c9.ide.run.debug/breakpoints","plugins/c9.ide.run.debug/debugpanel","plugins/c9.ide.run.debug/callstack",{"packagePath":"plugins/c9.ide.immediate/immediate","staticPrefix":"/static/plugins/c9.ide.layout.classic"},"plugins/c9.ide.immediate/evaluator","plugins/c9.ide.immediate/evaluators/browserjs","plugins/c9.ide.immediate/evaluators/debugnode","plugins/c9.ide.immediate/evaluators/bash","plugins/c9.ide.run.debug/variables","plugins/c9.ide.run.debug/watches","plugins/c9.ide.run.debug/liveinspect","plugins/c9.ide.run.debug.xdebug/xdebug","plugins/c9.ide.run.debug/debuggers/gdb/gdbdebugger",{"packagePath":"plugins/c9.ide.terminal/terminal","tmux":"/builddir/.c9/bin/tmux","root":"/opt/c9sdk","tmpdir":"/tmp","shell":"","staticPrefix":"/static/plugins/c9.ide.terminal","installPath":"~/.c9"},{"packagePath":"plugins/c9.ide.terminal/predict_echo"},{"packagePath":"plugins/c9.ide.terminal/link_handler","previewUrl":"/preview"},{"packagePath":"plugins/c9.ide.terminal.monitor/monitor","bashBin":"bash"},{"packagePath":"plugins/c9.ide.terminal.monitor/message_view","staticPrefix":"/static/plugins/c9.ide.layout.classic"},"plugins/c9.ide.terminal/opentermhere",{"packagePath":"plugins/c9.ide.run/output","staticPrefix":"/static/plugins/c9.ide.layout.classic","tmux":"/builddir/.c9/bin/tmux","basePath":"/opt/c9sdk"},{"packagePath":"plugins/c9.ide.console/console","staticPrefix":"/static/plugins/c9.ide.layout.classic","defaultState":null},{"packagePath":"plugins/c9.ide.layout.classic/layout","staticPrefix":"/static/plugins/c9.ide.layout.classic","dashboardUrl":"https://c9.io/dashboard.html"},"plugins/c9.ide.theme.flat/flat-light","plugins/c9.ide.theme.flat/flat-dark",{"packagePath":"plugins/c9.ide.layout.classic/preload","themePrefix":"/static/standalone/skin/default","defaultTheme":"dark"},{"packagePath":"plugins/c9.ide.tree/tree","staticPrefix":"/static/plugins/c9.ide.layout.classic","defaultExpanded":true},{"packagePath":"plugins/c9.ide.tree/favorites","realRoot":true,"home":"~"},"plugins/c9.ide.mount/mount",{"packagePath":"plugins/c9.ide.mount/ftp","curlftpfsBin":"curlftpfs","fusermountBin":"fusermount"},{"packagePath":"plugins/c9.ide.mount/sftp","sshfsBin":"sshfs","fusermountBin":"fusermount"},{"packagePath":"plugins/c9.ide.upload/dragdrop"},{"packagePath":"plugins/c9.ide.upload/upload","staticPrefix":"/static/plugins/c9.ide.upload"},{"packagePath":"plugins/c9.ide.upload/upload_manager","workerPrefix":"plugins/c9.ide.upload"},{"packagePath":"plugins/c9.ide.upload/upload_progress","staticPrefix":"/static/plugins/c9.ide.layout.classic"},{"packagePath":"plugins/c9.ide.navigate/navigate","loadListAtInit":false},{"packagePath":"plugins/c9.ide.keys/panel"},{"packagePath":"plugins/c9.ide.language/outline","staticPrefix":"/static/plugins/c9.ide.language"},{"packagePath":"plugins/c9.ide.panels/panels","staticPrefix":"/static/plugins/c9.ide.layout.classic","defaultActiveLeft":"tree"},"plugins/c9.ide.panels/panel","plugins/c9.ide.panels/area","plugins/c9.ide.processlist/processlist",{"packagePath":"plugins/c9.ide.installer/gui","staticPrefix":"/static/plugins/c9.ide.layout.classic"},"plugins/c9.automate/automate","plugins/c9.ide.installer/commands/centos","plugins/c9.ide.installer/commands/darwin","plugins/c9.ide.installer/commands/bash","plugins/c9.ide.installer/commands/npm","plugins/c9.ide.installer/commands/npm-g","plugins/c9.ide.installer/commands/pip","plugins/c9.ide.installer/commands/gem","plugins/c9.ide.installer/commands/zip","plugins/c9.ide.installer/commands/symlink","plugins/c9.ide.installer/commands/message",{"packagePath":"plugins/c9.ide.installer/commands/tar.gz","bashBin":"bash"},"plugins/c9.ide.installer/commands/ubuntu",{"packagePath":"plugins/c9.ide.installer/installer","homeDir":"/builddir","installSelfCheck":true,"installPath":"/builddir/.c9"},{"packagePath":"plugins/c9.ide.preview/preview","staticPrefix":"/static/plugins/c9.ide.preview","defaultPreviewer":"preview.browser","previewUrl":"/preview"},"plugins/c9.ide.preview/previewer","plugins/c9.ide.preview/previewers/raw",{"packagePath":"plugins/c9.ide.preview.browser/browser"},{"packagePath":"plugins/c9.ide.preview.markdown/markdown","staticPrefix":"/static","htmlPath":"/plugins/c9.ide.preview.markdown/markdown.html"},"plugins/c9.ide.remote/manager","plugins/c9.ide.remote/documents/htmldocument","plugins/c9.ide.remote/documents/cssdocument","plugins/c9.ide.remote/documents/jsdocument",{"packagePath":"plugins/c9.ide.remote/transports/postmessage"},"plugins/c9.ide.format/format","plugins/c9.ide.format/formatters/jsbeautify","plugins/c9.ide.download/download",{"packagePath":"plugins/c9.ide.info/info","installPath":"/builddir/.c9","user":{"id":-1,"name":"johndoe","fullname":"John Doe","email":"johndoe@example.org","pubkey":null},"project":{"id":0,"name":"projectname","contents":null,"descr":"descr"}},{"packagePath":"plugins/c9.ide.welcome/welcome","staticPrefix":"/static/plugins/c9.ide.welcome","intro":"Welcome to Cloud9. Use this welcome screen to tweak the look &amp; feel of the Cloud9 user interface. ","checkOS":true},{"packagePath":"plugins/c9.cli.bridge/bridge","startBridge":true},{"packagePath":"plugins/c9.cli.bridge/bridge_commands","basePath":"/opt/c9sdk"},{"packagePath":"plugins/c9.ide.help.support/support","baseurl":"http://c9.io","userSnapApiKey":"e3d3b232-1c21-4961-b73d-fbc8dc7be1c3","screenshotSupport":true},{"packagePath":"plugins/c9.ide.help/help","staticPrefix":"/static/plugins/c9.ide.help"},{"packagePath":"plugins/c9.ide.configuration/configure","dashboardUrl":"https://c9.io/dashboard.html"},"plugins/c9.ide.save/save","plugins/c9.ide.recentfiles/recentfiles",{"packagePath":"plugins/c9.ide.save/autosave"},{"packagePath":"plugins/c9.ide.clipboard/clipboard"},{"packagePath":"plugins/c9.ide.clipboard/html5"},"plugins/c9.ide.behaviors/tabs",{"packagePath":"plugins/c9.ide.behaviors/page","staticPrefix":"/static/plugins/c9.ide.behaviors"},"plugins/c9.ide.browsersupport/browsersupport",{"packagePath":"plugins/c9.ide.preferences/preferences","staticPrefix":"/static/plugins/c9.ide.preferences"},"plugins/c9.ide.preferences/preferencepanel",{"packagePath":"plugins/c9.ide.preferences/general","installPath":"/builddir/.c9"},{"packagePath":"plugins/c9.ide.preferences/project","basePath":"/opt/c9sdk"},"plugins/c9.ide.preferences/experimental",{"packagePath":"plugins/c9.ide.login/login","staticPrefix":"/static/plugins/c9.ide.login","ideBaseUrl":"http://c9.io","dashboardUrl":"https://c9.io/dashboard.html"},{"packagePath":"plugins/c9.ide.pubsub/pubsub-client","extendToken":"token"},{"packagePath":"plugins/c9.ide.collab/notifications/bubble","staticPrefix":"/static/plugins/c9.ide.collab/notifications"},{"packagePath":"plugins/c9.ide.test/test"},"plugins/c9.ide.test/testpanel","plugins/c9.ide.test/testrunner",{"packagePath":"plugins/c9.ide.test/all","staticPrefix":"/static/plugins/c9.ide.test"},"plugins/c9.ide.test/results","plugins/c9.ide.test/coverage","plugins/c9.ide.test/coverageview","plugins/c9.ide.test.mocha/mocha","plugins/c9.ide.scm/scm","plugins/c9.ide.scm/scmpanel","plugins/c9.ide.scm/detail","plugins/c9.ide.scm/log","plugins/c9.ide.scm/git","plugins/c9.ide.scm/editor","plugins/c9.ide.scm/mergetool",{"packagePath":"plugins/c9.ide.errorhandler/simple_error_handler","version":"3.1.873","revision":"00998f58c28045da6aa1967adb11e0671aa5ab68"},"plugins/c9.ide.analytics/mock_analytics","plugins/c9.ide.services/linked-services-mock","plugins/c9.ide.language.jsonalyzer/mock_collab"];
+        var start = Date.now();
+        
+        
+        
+        if (isLocalVersion)
+            nativeRequire("nw.gui").Window.get().show();
+        
+        require(["lib/architect/architect"], function (architect) {
+            plugins.push({
+                consumes: [],
+                provides: ["auth.bootstrap"],
+                setup: function(options, imports, register) {
+                    register(null, {
+                        "auth.bootstrap": {
+                            login: function(callback) { callback(); }
+                        }
+                    });
+                }
+            });
+            
+            architect.resolveConfig(plugins, function (err, config) {
+                if (err) throw err;
+
+                var errored;
+                var app = architect.createApp(config, function(err, app){
+                    if (err) {
+                        errored = true;
+                        console.error(err.stack);
+                        alert(err);
+                    }
+                });
+                
+                app.lut = {};
+                
+                app.on("error", function(err){
+                    console.error(err.stack);
+                    if (!errored)
+                        alert(err);
+                });
+                
+                app.on("service", function(name, plugin, options){
+                    if (name == "plugin.loader" || name == "plugin.installer" 
+                      || name == "plugin.debug" || name == "plugin.manager"
+                      || name == "plugin.test")
+                        plugin.architect = app;
+                    if (!plugin.name)
+                        plugin.name = name;
+                    if (options)
+                        app.lut[(options.packagePath || "").replace(/^.*\/home\/.c9\//, "")] = options;
+                });
+                
+                app.on("ready", function(){
+                    if (app.services.configure)
+                        app.services.configure.services = app.services;
+                    
+                    window.app = app.services;
+                    window.app.__defineGetter__("_ace", function(){
+                        return this.tabManager.focussedTab.editor.ace;
+                    });
+                    Object.keys(window.app).forEach(function(n) {
+                        if (/[^\w]/.test(n))
+                            window.app[n.replace(/[^\w]/, "_") + "_"] = window.app[n];
+                    });
+                    
+                    done();
+                });
+
+                // For Development only
+                function done(){
+                    app.services.c9.ready();
+                    app.services.c9.totalLoadTime = Date.now() - start;
+
+                    console.warn("Total Load Time: ", Date.now() - start);
+                    
+                    if (window.hideLoader)
+                        window.hideLoader();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
