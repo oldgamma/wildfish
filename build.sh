@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION="${@}" &&
-    RELEASE=0.1.1 &&
+    RELEASE=0.1.2 &&
     rm --recursive --force build &&
     mkdir build &&
     sed -e "s#VERSION#${VERSION}#" -e "s#RELEASE#${RELEASE}#" -e "wbuild/wildfish.spec" wildfish.spec &&
@@ -44,4 +44,6 @@ EOF
     cp build/rebuild/01/wildfish-${VERSION}-${RELEASE}.x86_64.rpm build/repository &&
     cd build/repository &&
     createrepo . &&
+    git commit -am "Added wildfish ${VERSION} ${RELEASE}" -S &&
+    git push origin master &&
     true
